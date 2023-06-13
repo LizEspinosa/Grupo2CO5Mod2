@@ -33,6 +33,7 @@ class Game:
                 self.playing = False
 
     def update(self):
+        print ("update")
         user_input = pygame.key.get_pressed()
         self.player.update(user_input)
 
