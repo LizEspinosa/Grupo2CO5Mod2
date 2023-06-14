@@ -1,3 +1,4 @@
+import time
 from game.components.enemies.enemy import Enemy
 
 
@@ -15,6 +16,11 @@ class EnemyManager:
             enemy.draw(screen)
 
     def add_enemy(self):
-        if len (self.enemies) < 1:
+        if len (self.enemies) < 2:
             enemy = Enemy()
             self.enemies.append(enemy)
+        while True:
+            len (self.enemies)
+            time.sleep(3)
+
+        
