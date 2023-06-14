@@ -25,7 +25,7 @@ class Spaceship(Sprite):
         elif user_input[pygame.K_DOWN]:
             self.move_down()
 
-    def move_left(self):
+    def move_left(self): 
         self.rect.x -= self.SHIP_SPEED
         if self.rect.left < 0:
             self.rect.x = SCREEN_WIDTH - self.SHIP_WIDTH
