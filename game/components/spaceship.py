@@ -44,4 +44,4 @@ class Spaceship(Sprite):
             self.rect.y +=  self.SHIP_SPEED   
 
     def draw(self, screen):
-        screen.blit(self.image, (self.rect.x, self.rect.y))
+        screen.blit(self.image, (self.rect.x, self.rect.y)) 
