@@ -12,18 +12,10 @@ class Menu:
         self.text = self.font.render(message, True, (0,0,0))
         self.text_rect = self.text.get_rect()
         self.text_rect.center = (self.HALF_SCREEN_WIDTH, self.HALF_SCREEN_HEIGHT)
-        self.dead_ships = 0
 
     def update(self, game):
         pygame.display.update()
         self.handle_events_on_menu(game)
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                game.playing = False
-                game.running = False
-                game.dead_ships += self.dead_ships  # Increment the count
-            elif event.type == pygame.KEYDOWN:
-                game.run()
 
     def draw (self, screen ):
         screen.blit(self.text, self.text_rect)
@@ -44,5 +36,16 @@ class Menu:
         self.text_rect = self.text.get_rect()
         self.text_rect.center = (self.HALF_SCREEN_WIDTH, self.HALF_SCREEN_HEIGHT)
 
+    def draw_score(self, game, color = (255, 255, 255), coord_x = SCREEN_WIDTH - 50, coord_y = 25):
+        font = pygame.font.Font(FONT_STYLE, 20)
+        text = font.render(f'score: {game.score}', True, color)
+        text_rect = text.get_rect()
+        text_rect.center = ((coord_x, coord_y))
+        game.screen.blit(text, text_rect)
 
-    print("Total dead ships:", game.dead_ships)
+    def draw_deaths(self, game, coord_x = SCREEN_WIDTH - 300, coord_y = 25):
+        font = pygame.font.Font(FONT_STYLE, 20)
+        text = font.render(f'DEATHS: {game.death_count}', True, (0, 0, 0))
+        text_rect = text.get_rect()
+        text_rect.center = ((coord_x, coord_y))
+        game.screen.blit(text, text_rect)
