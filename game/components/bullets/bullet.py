@@ -1,3 +1,4 @@
+
 import pygame
 from pygame.sprite import Sprite
 
@@ -18,16 +19,13 @@ class Bullet(Sprite):
 
     def update(self, bullets):
 
-        if self.owner == 'enemy':
-            self.rect.y += self.SPEED
-            if self.rect.y >= SCREEN_HEIGHT:
-                bullets.remove(self)
-
         if self.owner == 'player':
             self.rect.y -= self.SPEED
-            if self.rect.y <= 0:
-                bullets.remove(self)
+        else:
+            self.rect.y += self.SPEED
 
-    
+        if self.rect.y < 0 or self.rect.y >= SCREEN_HEIGHT:
+            bullets.remove(self)
+
     def draw (self, screen):
         screen.blit(self.image,(self.rect.x, self.rect.y))
