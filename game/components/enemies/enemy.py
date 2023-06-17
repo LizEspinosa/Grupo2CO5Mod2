@@ -7,7 +7,7 @@ from game.utils.constants import ENEMY_1, ENEMY_2, SCREEN_HEIGHT, SCREEN_WIDTH
 class Enemy(Sprite):
     SHIP_WIDTH = 40
     SHIP_HEIGHT = 60
-    Y_POS = 20
+    Y_POS = -20
     X_POS_LIST = [50, 100, 150, 200, 250, 300, 350, 400, 450, 500, 550]
     SPEED_Y = 1
     SPEED_X = 5
