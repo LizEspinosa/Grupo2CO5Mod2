@@ -1,15 +1,18 @@
 import pygame
+import pygame.mixer
 from pygame.sprite import Sprite
 from game.components.bullets.bullet import Bullet
-from game.utils.constants import DEFAULT_TYPE, SCREEN_HEIGHT, SCREEN_WIDTH, SPACESHIP
+from game.utils.constants import DEFAULT_TYPE, LASER_SOUND, SCREEN_HEIGHT, SCREEN_WIDTH, SPACESHIP
 class Spaceship(Sprite):
+
     SHIP_WIDTH = 40
     SHIP_HEIGHT = 60
     X_POS = (SCREEN_WIDTH // 2) - SHIP_WIDTH
     Y_POS = 500
     SHIP_SPEED = 10
-
+    
     def __init__(self):
+        pygame.mixer.init()
         self.image = SPACESHIP
         self.image = pygame.transform.scale(self.image,(self.SHIP_WIDTH, self.SHIP_HEIGHT))
         self.rect = self.image.get_rect()
@@ -48,14 +51,14 @@ class Spaceship(Sprite):
 
     def move_down(self):
         if self.rect.y < SCREEN_HEIGHT - 70:
-            self.rect.y +=  self.SHIP_SPEED   
-
+            self.rect.y +=  self.SHIP_SPEED  
     def draw(self, screen):
         screen.blit(self.image, (self.rect.x, self.rect.y))
 
-    def shoot(self, game):
+    def shoot(self, game,):
         bullet = Bullet(self)
         game.bullet_manager.add_bullet(bullet)
+        pygame.mixer.Sound.play(LASER_SOUND)
 
     def set_image(self, size = (SHIP_WIDTH, SHIP_HEIGHT), image = SPACESHIP):
         self.image = image

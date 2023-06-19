@@ -2,7 +2,7 @@ import random
 import pygame
 from pygame.sprite import Sprite
 from game.components.bullets.bullet import Bullet
-from game.utils.constants import ENEMY_1, ENEMY_2, SCREEN_HEIGHT, SCREEN_WIDTH
+from game.utils.constants import ENEMY_1, ENEMY_2, SCREEN_HEIGHT, SCREEN_WIDTH,EXPLOSION,MUSIC 
 
 class Enemy(Sprite):
     SHIP_WIDTH = 40
@@ -31,6 +31,9 @@ class Enemy(Sprite):
     def update(self, ships, game):
         self.rect.y += self.speed_y
         self.shoot(game.bullet_manager)
+        
+
+        
 
         if self.movement_x == 'left':
             self.rect.x -= self.speed_x
@@ -41,6 +44,7 @@ class Enemy(Sprite):
 
         if self.rect.y >= SCREEN_HEIGHT:
             ships.remove(self)
+            
 
     def draw(self, screen):
         screen.blit(self.image, (self.rect.x, self.rect.y))

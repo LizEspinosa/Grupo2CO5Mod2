@@ -1,10 +1,12 @@
 import pygame 
+import pygame.mixer
+pygame.mixer.init()
 from game.components.bullets.bullet_manager import BulletManager
 from game.components.enemies.enemy_manager import EnemyManager
 from game.components.menu import Menu
 from game.components.power_ups.power_up_manager import PowerUpManager
 
-from game.utils.constants import BG, FONT_STYLE, ICON, GAMEOVER, INICIO, SCREEN_HEIGHT, SCREEN_WIDTH, TITLE, FPS, DEFAULT_TYPE
+from game.utils.constants import BG, FONT_STYLE, ICON, LASER_SOUND, GAMEOVER, INICIO, SCREEN_HEIGHT, SCREEN_WIDTH, TITLE, FPS, DEFAULT_TYPE
 from game.components.spaceship import Spaceship
 
 class Game:
@@ -14,6 +16,8 @@ class Game:
         pygame.display.set_icon(ICON)
         pygame.display.set_icon(GAMEOVER)
         pygame.display.set_icon(INICIO)
+        
+        
         self.screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
         self.clock = pygame.time.Clock()
         self.playing = False
