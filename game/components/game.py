@@ -4,7 +4,7 @@ from game.components.enemies.enemy_manager import EnemyManager
 from game.components.menu import Menu
 from game.components.power_ups.power_up_manager import PowerUpManager
 
-from game.utils.constants import BG, FONT_STYLE, ICON, SCREEN_HEIGHT, SCREEN_WIDTH, TITLE, FPS, DEFAULT_TYPE
+from game.utils.constants import BG, FONT_STYLE, ICON, GAMEOVER, SCREEN_HEIGHT, SCREEN_WIDTH, TITLE, FPS, DEFAULT_TYPE
 from game.components.spaceship import Spaceship
 
 class Game:
@@ -12,6 +12,7 @@ class Game:
         pygame.init()
         pygame.display.set_caption(TITLE)
         pygame.display.set_icon(ICON)
+        pygame.display.set_icon(GAMEOVER)
         self.screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
         self.clock = pygame.time.Clock()
         self.playing = False
@@ -67,8 +68,8 @@ class Game:
         self.player.draw(self.screen)
         self.enemy_manager.draw(self.screen)
         self.bullet_manager.draw(self.screen)
+        self.menu.draw_score(self)
         self.power_up_manager.draw(self.screen)
-        self.draw_score()
         self.draw_power_up_time()
         pygame.display.update()
         #pygame.display.flip()
@@ -78,6 +79,7 @@ class Game:
         image_height = image.get_height()
         self.screen.blit(image, (self.x_pos_bg, self.y_pos_bg))
         self.screen.blit(image, (self.x_pos_bg, self.y_pos_bg - image_height))
+        
         if self.y_pos_bg >= SCREEN_HEIGHT:
             self.screen.blit(image, (self.x_pos_bg, self.y_pos_bg - image_height))
             self.y_pos_bg = 0
@@ -91,9 +93,19 @@ class Game:
         self.menu.reset_screen_color(self.screen)
 
         if self.death_count >0:
-            self.menu.update_message("La tarea aca")
+            self.menu.update_message("PRESS ANY KEY TO CONTINUE")
+         
+            gameover = pygame.transform.scale (GAMEOVER, (1100,600))
+            self.screen.blit(gameover, (half_screen_width -550, half_screen_height -300))
+            self.menu.draw_score(self, (255, 255, 255))
+            self.menu.draw_deaths(self)
+
+            
+           
         icon = pygame.transform.scale (ICON, (80,120))
-        self.screen.blit(icon, (half_screen_width - 50, half_screen_height -120))
+        self.screen.blit(icon, (half_screen_width - 50, half_screen_height -260))
+       
+        
 
         self.menu.draw(self.screen)
         self.menu.update(self)
@@ -107,7 +119,8 @@ class Game:
         text_rect = text.get_rect()
         text_rect.center = (100, 100)
         self.screen.blit(text, text_rect)
-
+        
+        
     def draw_power_up_time(self):
         if self.player.has_power_up:
             time_to_show = round((self.player.power_time_up - pygame.time.get_ticks())/1000, 2)

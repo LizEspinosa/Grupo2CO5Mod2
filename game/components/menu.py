@@ -32,6 +32,20 @@ class Menu:
         screen.fill((255, 255, 255))
 
     def update_message(self, message):
-        self.text = self.font.render(message, True, (0,0,0))
+        self.text = self.font.render(message, True, (93, 193, 185))
         self.text_rect = self.text.get_rect()
-        self.text_rect.center = (self.HALF_SCREEN_WIDTH, self.HALF_SCREEN_HEIGHT)
+        self.text_rect = (SCREEN_WIDTH -900, SCREEN_HEIGHT -80)
+
+    def draw_score(self, game, color = (0, 0, 0), coord_x = SCREEN_WIDTH - 50, coord_y = 25):
+        font = pygame.font.Font(FONT_STYLE, 16)
+        text = font.render(f'score: {game.score}', True, color)
+        text_rect = text.get_rect()
+        text_rect.center = ((coord_x, coord_y))
+        game.screen.blit(text, text_rect)
+
+    def draw_deaths(self, game, coord_x = SCREEN_WIDTH - 300, coord_y = 25):
+        font = pygame.font.Font(FONT_STYLE, 16)
+        text = font.render(f'Deaths: {game.death_count}', True, (255, 255, 255))
+        text_rect = text.get_rect()
+        text_rect.center = ((coord_x, coord_y))
+        game.screen.blit(text, text_rect)
