@@ -4,7 +4,7 @@ from game.components.enemies.enemy_manager import EnemyManager
 from game.components.menu import Menu
 from game.components.power_ups.power_up_manager import PowerUpManager
 
-from game.utils.constants import BG, FONT_STYLE, ICON, GAMEOVER, SCREEN_HEIGHT, SCREEN_WIDTH, TITLE, FPS, DEFAULT_TYPE
+from game.utils.constants import BG, FONT_STYLE, ICON, GAMEOVER, INICIO, SCREEN_HEIGHT, SCREEN_WIDTH, TITLE, FPS, DEFAULT_TYPE
 from game.components.spaceship import Spaceship
 
 class Game:
@@ -13,6 +13,7 @@ class Game:
         pygame.display.set_caption(TITLE)
         pygame.display.set_icon(ICON)
         pygame.display.set_icon(GAMEOVER)
+        pygame.display.set_icon(INICIO)
         self.screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
         self.clock = pygame.time.Clock()
         self.playing = False
@@ -91,6 +92,9 @@ class Game:
         half_screen_height = SCREEN_HEIGHT //2
 
         self.menu.reset_screen_color(self.screen)
+        inicio = pygame.transform.scale (INICIO, (1100,600))
+        self.screen.blit(inicio, (half_screen_width -550, half_screen_height -300))
+            
 
         if self.death_count >0:
             self.menu.update_message("PRESS ANY KEY TO CONTINUE")
@@ -102,8 +106,8 @@ class Game:
 
             
            
-        icon = pygame.transform.scale (ICON, (80,120))
-        self.screen.blit(icon, (half_screen_width - 50, half_screen_height -260))
+            icon = pygame.transform.scale (ICON, (80,120))
+            self.screen.blit(icon, (half_screen_width - 50, half_screen_height -260))
        
         
 
