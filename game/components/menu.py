@@ -36,7 +36,7 @@ class Menu:
         self.text_rect = self.text.get_rect()
         self.text_rect = (SCREEN_WIDTH -900, SCREEN_HEIGHT -80)
 
-    def draw_score(self, game, color = (0, 0, 0), coord_x = SCREEN_WIDTH - 50, coord_y = 25):
+    def draw_score(self, game, color = (250, 250, 250), coord_x = SCREEN_WIDTH - 50, coord_y = 25):
         font = pygame.font.Font(FONT_STYLE, 16)
         text = font.render(f'score: {game.score}', True, color)
         text_rect = text.get_rect()

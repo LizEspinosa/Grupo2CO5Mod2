@@ -5,12 +5,14 @@ import random
 
 import pygame
 from game.components.power_ups.shield import Shield
+from game.components.power_ups.points import Points
 
 from game.utils.constants import SPACESHIP_SHIELD
 
 
 class PowerUpManager:
     def __init__(self):
+        self.points_ups = []
         self.power_ups = []
         self.duration = random.randint(3, 5)
         self.when_appears = random.randint(5000, 10000)
@@ -20,6 +22,12 @@ class PowerUpManager:
 
         if len(self.power_ups) == 0 and current_time >= self.when_appears:
             self.generate_power_up(game)
+            self.generate_points()
+
+        for power_up in self.points_ups:
+            power_up.update_points(game.game_speed, self.points_ups)
+            if power_up.type == 'points':
+                    game.score += 50
         
         for power_up in self.power_ups:
             power_up.update(game.game_speed, self.power_ups)
@@ -33,11 +41,25 @@ class PowerUpManager:
                 game.player.set_image((65, 75), SPACESHIP_SHIELD)
                 self.power_ups.remove(power_up)
 
+    
+
     def draw(self, screen):
         for power_up in self.power_ups:
+            power_up.draw(screen)
+        
+        for power_up in self.points_ups:
             power_up.draw(screen)
 
     def generate_power_up(self, game):
         power_up = Shield()
         self.when_appears += random.randint(5000, 10000)
         self.power_ups.append(power_up)
+    
+    def generate_points(self):
+        points_up = Points() 
+        self.when_appears += random.randint(5000, 10000)
+        self.points_ups.append(points_up)
+
+    def reset(self):
+        self.power_ups = [] 
+        self.points_ups = []
